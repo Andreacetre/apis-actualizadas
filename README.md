@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # API-3.0
 
 Include [Bootstrap](https://getbootstrap.com)'s source Sass and individual JavaScript plugins with [Vite](https://vitejs.dev/).
@@ -13,3 +14,6 @@ git clone https://github.com/twbs/examples.git
 cd examples/vite/
 npm install
 npm start
+=======
+# apis-actualizadas
+>>>>>>> 778f15ae4a0be783fc3f853c89e47a61c431f862
