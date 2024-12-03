@@ -1,20 +1,25 @@
 const mongoose = require('mongoose');
 
-// Esquema para el rol
-const RolSchema = new mongoose.Schema({
-    nombre: { type: String, required: true },
-    estado: { type: String, required: true },
-    permisos: {
-        crear: { type: Boolean, required: true },
-        modificar: { type: Boolean, required: true },
-        cambiarEstado: { type: Boolean, required: true },
-        ver: { type: Boolean, required: true },
-        eliminar: { type: Boolean, required: true },
-        listar: { type: Boolean, required: true },
-        buscar: { type: Boolean, required: true }
-    }
+const PermisoSchema = new mongoose.Schema({
+  crear: { type: Boolean, default: false },
+  modificar: { type: Boolean, default: false },
+  cambiarEstado: { type: Boolean, default: false },
+  ver: { type: Boolean, default: false },
+  eliminar: { type: Boolean, default: false },
+  listar: { type: Boolean, default: false },
+  buscar: { type: Boolean, default: false }
 });
 
-const Rol = mongoose.model('Rol', RolSchema);
-module.exports = Rol;
+const RolSchema = new mongoose.Schema({
+  nombre: { type: String, required: true },
+  estado: { type: String, required: true },
+  permisos: {
+    configuracion: PermisoSchema,
+    usuarios: PermisoSchema,
+    compras: PermisoSchema,
+    ventas: PermisoSchema
+  }
+});
+
+module.exports = mongoose.model('Rol', RolSchema);
 

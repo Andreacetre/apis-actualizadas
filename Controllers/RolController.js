@@ -1,6 +1,5 @@
 const Rol = require('../Models/RolModel');
 
-// Crear un nuevo rol
 exports.crearRol = async (req, res) => {
   try {
     const { nombre, estado, permisos } = req.body;
@@ -12,7 +11,6 @@ exports.crearRol = async (req, res) => {
   }
 };
 
-// Obtener todos los roles
 exports.obtenerRoles = async (req, res) => {
   try {
     const roles = await Rol.find();
@@ -22,7 +20,6 @@ exports.obtenerRoles = async (req, res) => {
   }
 };
 
-// Obtener un rol por ID
 exports.obtenerRolPorId = async (req, res) => {
   try {
     const rol = await Rol.findById(req.params.id);
@@ -33,14 +30,13 @@ exports.obtenerRolPorId = async (req, res) => {
   }
 };
 
-// Actualizar un rol
 exports.actualizarRol = async (req, res) => {
   try {
     const { nombre, estado, permisos } = req.body;
     const rolActualizado = await Rol.findByIdAndUpdate(
       req.params.id,
       { nombre, estado, permisos },
-      { new: true }
+      { new: true, runValidators: true }
     );
     if (!rolActualizado) return res.status(404).json({ mensaje: 'Rol no encontrado' });
     res.status(200).json(rolActualizado);
@@ -49,7 +45,6 @@ exports.actualizarRol = async (req, res) => {
   }
 };
 
-// Eliminar un rol
 exports.eliminarRol = async (req, res) => {
   try {
     const rolEliminado = await Rol.findByIdAndDelete(req.params.id);
@@ -59,3 +54,4 @@ exports.eliminarRol = async (req, res) => {
     res.status(400).json({ mensaje: error.message });
   }
 };
+
