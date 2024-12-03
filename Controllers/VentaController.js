@@ -1,5 +1,5 @@
-const Venta = require('../models/VentaModel');
-const Producto = require('../models/ProductoModel');
+const Venta = require('../Models/VentaModel');
+const Producto = require('../Models/VentaModel');
 
 exports.crearVenta = async (req, res) => {
     try {
