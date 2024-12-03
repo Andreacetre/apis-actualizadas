@@ -33,4 +33,3 @@ const ventaSchema = new mongoose.Schema({
 
 const Venta = mongoose.models.Venta || mongoose.model('Venta', ventaSchema);
 module.exports = Venta;
-

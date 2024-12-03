@@ -1,5 +1,5 @@
 const Venta = require('../Models/VentaModel');
-const Producto = require('../Models/VentaModel');
+const Producto = require('../Models/ProductoModel');
 
 exports.crearVenta = async (req, res) => {
     try {
@@ -13,13 +13,14 @@ exports.crearVenta = async (req, res) => {
                 return res.status(404).json({ mensaje: `Producto ${item.producto} no encontrado` });
             }
             if (producto.stock < item.cantidad) {
-                return res.status(400).json({ mensaje: `Stock insuficiente para el producto ${producto.nombre}` });
+                return res.status(400).json({ mensaje: `Stock insuficiente para el producto ${producto.name}` });
             }
-            total += item.cantidad * producto.precio;
+            total += item.cantidad * producto.price;
             producto.stock -= item.cantidad;
             await producto.save();
         }
 
+        // Crear la venta
         const nuevaVenta = new Venta({
             cliente,
             productos: productos.map(item => ({
@@ -30,6 +31,7 @@ exports.crearVenta = async (req, res) => {
             total
         });
 
+        // Guardar la venta
         await nuevaVenta.save();
         res.status(201).json(nuevaVenta);
     } catch (error) {
@@ -81,4 +83,3 @@ exports.eliminarVenta = async (req, res) => {
         res.status(500).json({ mensaje: 'Error al eliminar la venta', error: error.message });
     }
 };
-
