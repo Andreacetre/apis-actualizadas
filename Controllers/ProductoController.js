@@ -12,7 +12,7 @@ exports.crearProducto = async (req, res) => {
 
 exports.obtenerProductos = async (req, res) => {
     try {
-        const productos = await Producto.find().populate('categoria');
+        const productos = await Producto.find().populate('category'); // Cambiado 'categoria' por 'category'
         res.status(200).json(productos);
     } catch (error) {
         res.status(500).json({ mensaje: 'Error al obtener productos', error: error.message });
@@ -21,7 +21,7 @@ exports.obtenerProductos = async (req, res) => {
 
 exports.obtenerProductoPorId = async (req, res) => {
     try {
-        const producto = await Producto.findById(req.params.id).populate('categoria');
+        const producto = await Producto.findById(req.params.id).populate('category'); // Cambiado 'categoria' por 'category'
         if (!producto) {
             return res.status(404).json({ mensaje: 'Producto no encontrado' });
         }
@@ -54,4 +54,3 @@ exports.eliminarProducto = async (req, res) => {
         res.status(500).json({ mensaje: 'Error al eliminar el producto', error: error.message });
     }
 };
-

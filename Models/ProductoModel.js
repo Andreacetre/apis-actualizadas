@@ -15,7 +15,7 @@ const productoSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    category: {
+    category: { // Cambiado a 'category' para coincidir con el populate
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Categoria',  // Relacionado con el modelo de categoría
         required: true
@@ -46,4 +46,3 @@ const productoSchema = new mongoose.Schema({
 const Producto = mongoose.models.Producto || mongoose.model('Producto', productoSchema);
 
 module.exports = Producto;
-
