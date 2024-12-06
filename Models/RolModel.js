@@ -13,6 +13,7 @@ const PermisoSchema = new mongoose.Schema({
 const RolSchema = new mongoose.Schema({
   nombre: { type: String, required: true },
   estado: { type: String, required: true },
+  observacion: { type: String, default: '' }, // Nuevo campo
   permisos: {
     configuracion: PermisoSchema,
     usuarios: PermisoSchema,
@@ -22,4 +23,3 @@ const RolSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Rol', RolSchema);
-

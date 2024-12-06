@@ -2,8 +2,8 @@ const Rol = require('../Models/RolModel');
 
 exports.crearRol = async (req, res) => {
   try {
-    const { nombre, estado, permisos } = req.body;
-    const nuevoRol = new Rol({ nombre, estado, permisos });
+    const { nombre, estado, permisos, observacion } = req.body;
+    const nuevoRol = new Rol({ nombre, estado, permisos, observacion });
     await nuevoRol.save();
     res.status(201).json(nuevoRol);
   } catch (error) {
@@ -32,10 +32,10 @@ exports.obtenerRolPorId = async (req, res) => {
 
 exports.actualizarRol = async (req, res) => {
   try {
-    const { nombre, estado, permisos } = req.body;
+    const { nombre, estado, permisos, observacion } = req.body;
     const rolActualizado = await Rol.findByIdAndUpdate(
       req.params.id,
-      { nombre, estado, permisos },
+      { nombre, estado, permisos, observacion },
       { new: true, runValidators: true }
     );
     if (!rolActualizado) return res.status(404).json({ mensaje: 'Rol no encontrado' });
@@ -55,3 +55,18 @@ exports.eliminarRol = async (req, res) => {
   }
 };
 
+// Nuevo método para actualizar solo la observación
+exports.actualizarObservacion = async (req, res) => {
+  try {
+    const { observacion } = req.body;
+    const rolActualizado = await Rol.findByIdAndUpdate(
+      req.params.id,
+      { observacion },
+      { new: true, runValidators: true }
+    );
+    if (!rolActualizado) return res.status(404).json({ mensaje: 'Rol no encontrado' });
+    res.status(200).json(rolActualizado);
+  } catch (error) {
+    res.status(400).json({ mensaje: error.message });
+  }
+};
